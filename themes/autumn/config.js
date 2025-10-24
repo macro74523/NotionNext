@@ -4,6 +4,6 @@
 const CONFIG = {
   // 文章底部显示 “not by ai”
   AUTUMN_NOT_BY_AI: true,
-  AUTUMN_BANNER_BG_COLOR: '#725846',
+  AUTUMN_BANNER_BG_COLOR: '#030C0B',
 }
 export default CONFIG
