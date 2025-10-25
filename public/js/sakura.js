@@ -165,11 +165,9 @@ function createSakura() {
   function stopp() {
     if (staticx) {
       var child = document.getElementById(id)
-      if (child && child.parentNode && child.parentNode.contains(child)) {
-        child.parentNode.removeChild(child)
-        window.cancelAnimationFrame(stop)
-        staticx = false
-      }
+      child.parentNode.removeChild(child)
+      window.cancelAnimationFrame(stop)
+      staticx = false
     } else {
       startSakura()
     }
@@ -179,7 +177,7 @@ function createSakura() {
 // 销毁樱花雨
 function destroySakura() {
   const sakura = document.getElementById(idSakura)
-  if (sakura && sakura.parentNode && sakura.parentNode.contains(sakura)) {
+  if (sakura && sakura.parentNode) {
     sakura.parentNode.removeChild(sakura)
   }
 }
