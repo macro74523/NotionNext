@@ -1,5 +1,6 @@
 import { siteConfig } from '@/lib/config'
 import Link from 'next/link'
+import { useRef, useEffect } from 'react'
 
 export const Footer = props => {
   const d = new Date()
@@ -7,40 +8,46 @@ export const Footer = props => {
   const since = siteConfig('SINCE')
   const copyrightDate =
     parseInt(since) < currentYear ? since + '-' + currentYear : currentYear
+  
+  // 回到顶部函数
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // 平滑滚动
+    })
+  }
 
   return (
     <footer className='w-full border-t border-gray-200/[.8] relative 
-      /* 电脑端保持原边距，移动端缩小上边距 */
       mt-72 md:mt-60
-      /* 伪元素基础样式（电脑端不变） */
-      before:w-full before:h-[22rem] before:z-10 before:block before:absolute 
-      before:-top-[17.6rem] before:left-0
-      before:bg-[url(/images/footer-bg.png)] before:bg-no-repeat before:bg-left 
-      before:bg-cover lg:before:bg-contain
+      /* 移除伪元素背景图设置，改为实际图片元素 */
     '>
-      {/* 强制移动端缩小50%，解决样式未生效问题 */}
+      {/* 底部图片容器（可点击） */}
+      <div 
+        className='absolute w-full h-[22rem] z-10 -top-[17.6rem] left-0
+          bg-no-repeat bg-left bg-cover lg:bg-contain
+          cursor-pointer /* 鼠标悬停显示手型 */
+        '
+        style={{ backgroundImage: `url(/images/footer-bg.png)` }}
+        onClick={scrollToTop} // 点击触发回到顶部
+      />
+
+      {/* 移动端图片缩小50%样式 */}
       <style jsx global>{`
-        /* 精确匹配移动端断点，确保样式覆盖 */
         @media only screen and (max-width: 768px) {
-          /* 强制伪元素尺寸缩小50%，提高选择器优先级 */
-          footer:before {
-            height: 11rem !important; /* 原22rem → 缩小50% */
-            top: -8.8rem !important; /* 原-17.6rem → 同步缩小 */
-            width: 50% !important; /* 宽度同步缩小50% */
-            background-size: contain !important; /* 强制图片适配缩小后的容器 */
-            background-position: left top !important; /* 靠左上对齐，避免留白 */
-          }
-          
-          /* 移动端内容区同步缩小间距 */
-          footer > div {
-            margin-top: 6rem !important;
-            margin-bottom: 6rem !important;
+          footer > div:first-of-type {
+            height: 11rem !important;
+            top: -8.8rem !important;
+            width: 50% !important;
+            background-size: contain !important;
+            background-position: left top !important;
           }
         }
       `}</style>
 
-      <div className='max-w-[var(--content-width)] mx-auto my-12'>
-        <p className='mx-6 text-left text-xs text-gray-500 font-bold relative z-20'>
+      {/* 版权信息区 */}
+      <div className='max-w-[var(--content-width)] mx-auto my-12 relative z-20'>
+        <p className='mx-6 text-left text-xs text-gray-500 font-bold'>
           &copy; {`${copyrightDate}`} {siteConfig('AUTHOR')}
           {' · Powered by '}
           <Link
