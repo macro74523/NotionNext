@@ -2,8 +2,13 @@ import { siteConfig } from '@/lib/config'
 import { MenuList } from './MenuList'
 import { SocialButton } from './SocialButton'
 import LazyImage from '@/components/LazyImage'
+// 1. 导入 Next.js 路由钩子
+import { useRouter } from 'next/router'
 
 export const Header = props => {
+  // 2. 创建路由实例
+  const router = useRouter()
+
   return (
     <header
       style={{backgroundColor: `${siteConfig('AUTUMN_BANNER_BG_COLOR')}`}}
@@ -13,10 +18,16 @@ export const Header = props => {
         className={`max-w-[var(--content-width)] size-full px-5 flex justify-center items-center flex-col relative bg-cover bg-center`}>
         <div className='rounded-xl bg-white/[.6] w-full py-4 px-5 backdrop-blur-sm hover:scale-[1.03] transition duration-300 relative bottom-5'>
           <div className='flex items-center'>
-            <LazyImage
-              className='size-20 rounded-full shadow-lg pointer-events-none select-none'
-              src={props?.avatar || siteConfig('AVATAR')}
-            />
+            {/* 3. 加外层 div 绑定点击事件，实现返回上一层 */}
+            <div 
+              onClick={() => router.back()} 
+              className='cursor-pointer' // 鼠标悬浮显示“手”型，提示可点击
+            >
+              <LazyImage
+                className='size-20 rounded-full shadow-lg pointer-events-none select-none'
+                src={props?.avatar || siteConfig('AVATAR')}
+              />
+            </div>
             <div className='flex flex-col flex-1 ml-7 size-full'>
               <h1 className='text-2xl my-0 text-[var(--theme-color)] drop-shadow-[0_2px_10px_rgba(231,156,0,0.6)] font-bold'>
                 {props?.title || siteConfig('TITLE')}
