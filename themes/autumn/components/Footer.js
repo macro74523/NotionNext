@@ -12,19 +12,19 @@ export const Footer = props => {
     <footer className='w-full border-t border-gray-200/[.8] relative mt-40 md:mt-60 lg:mt-72
       before:w-full before:block before:absolute before:left-0 before:z-10
       before:bg-no-repeat before:bg-center before:bg-cover
-      /* 基础伪元素尺寸 - 随屏幕适配调整 */
+      /* 按屏幕尺寸分级适配高度，避免移动端图片过高 */
       before:h-[18rem] sm:before:h-[20rem] lg:before:h-[22rem]
-      /* 伪元素位置调整 - 确保图片在底部区域内 */
+      /* 适配不同屏幕的图片位置，确保不溢出可视区 */
       before:-top-[14rem] sm:before:-top-[15rem] lg:before:-top-[17.6rem]
-      /* 背景图路径（可替换为你的新图片路径） */
-      before:bg-[url(/images/new-footer-bg.png)]
+      /* 恢复原背景图路径，未做修改 */
+      before:bg-[url(/images/footer-bg.png)]
     '>
-      {/* 移动端背景适配 */}
+      {/* 移动端专属适配：避免图片拉伸/裁剪 */}
       <style jsx global>{`
         @media (max-width: 640px) {
           footer::before {
-            background-size: contain; /* 移动端图片自适应容器，避免拉伸 */
-            background-position: bottom center; /* 确保图片底部对齐 */
+            background-size: contain; /* 移动端图片自适应容器，不拉伸 */
+            background-position: bottom center; /* 确保图片底部对齐，不裁切关键部分 */
           }
         }
       `}</style>
