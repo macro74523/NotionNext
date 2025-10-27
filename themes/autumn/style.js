@@ -102,4 +102,9 @@ const Style = () => {
   )
 }
 
+// style.js
+export const myStyles = {
+  // 其他样式...
+  cursor: 'none' // 关键代码
+};
 export { Style }
