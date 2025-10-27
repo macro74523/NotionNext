@@ -12,18 +12,29 @@ const Style = () => {
         --theme-color: #ff8200;
         --fg-color: #495057;
       }
-      /* 隐藏所有可输入元素的输入光标 */
+      /* 隐藏输入光标：覆盖常见输入元素及Notion风格组件 */
       input,
       textarea,
+      [contenteditable], /* 所有可编辑元素（包括富文本） */
       [contenteditable="true"],
-      [contenteditable="plaintext-only"] {
-        caret-color: transparent !important; /* 核心属性：让光标透明 */
+      .notion-editable, /* Notion常见的可编辑类 */
+      .notion-input,    /* Notion输入框类（如有） */
+      .notion-text-input, /* 可能的文本输入类 */
+      .notion-to-do-input /* 待办项输入框（如有） */
+      {
+        caret-color: transparent !important; /* 强制光标透明 */
+        outline: none !important; /* 可选：同时隐藏聚焦时的轮廓（如果需要） */
+      }
+      /* 针对部分浏览器对contenteditable的特殊处理 */
+      [contenteditable]:empty::before {
+        caret-color: transparent !important;
       }
       ::selection {
         background-color: var(--theme-color) !important;
         color: #fff !important;
       }
 
+      /* 以下为原有样式，保持不变 */
       .notion-h-title {
         color: #343a40;
         font-weight: bold;
