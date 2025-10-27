@@ -12,9 +12,12 @@ const Style = () => {
         --theme-color: #ff8200;
         --fg-color: #495057;
       }
-      /* 全局隐藏鼠标光标 */
-      body {
-        cursor: none;
+      /* 隐藏所有可输入元素的输入光标 */
+      input,
+      textarea,
+      [contenteditable="true"],
+      [contenteditable="plaintext-only"] {
+        caret-color: transparent !important; /* 核心属性：让光标透明 */
       }
       ::selection {
         background-color: var(--theme-color) !important;
