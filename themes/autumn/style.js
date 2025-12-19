@@ -15,6 +15,37 @@ const Style = () => {
         --tag-hover-bg: var(--theme-color); /* Tag hover背景色（贴合主题） */
         --tag-text: #666; /* Tag默认文字色 */
         --tag-hover-text: #fff; /* Tag hover文字色 */
+        /* 卡片相关变量（复用原有主题色） */
+        --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        --card-hover-shadow: 0 8px 24px rgba(255, 130, 0, 0.15); /* 贴合主题色的阴影 */
+        --card-radius: 0.8em; /* 卡片圆角 */
+        --card-transition: all 300ms ease; /* 统一过渡动效 */
+      }
+
+      /* 👇 核心：以图片为主的卡片样式 */
+      .card-item { 
+        background-color: #fff;
+        border-radius: var(--card-radius);
+        box-shadow: var(--card-shadow);
+        overflow: hidden; /* 保证图片/文字不溢出圆角 */
+        transition: var(--card-transition);
+      }
+      .card-item:hover {
+        box-shadow: var(--card-hover-shadow);
+      }
+      /* 卡片内标题样式（适配图片上的白色文字） */
+      .card-item .card-title {
+        color: #fff; /* 图片上的文字默认白色 */
+        font-weight: 600;
+        transition: color 300ms ease;
+      }
+      .card-item:hover .card-title {
+        color: var(--theme-color); /* hover时标题变主题色 */
+      }
+      /* 卡片内描述文本样式（适配图片上的浅色文字） */
+      .card-item .card-desc {
+        color: rgba(255,255,255,0.8);
+        line-height: 1.4;
       }
 
       /* 👇 优化后的Tag标签样式（核心新增） */
@@ -119,7 +150,7 @@ const Style = () => {
       }
 
       .notion-toggle > summary::marker {
-        # TODO gap between marker and text
+        /* TODO gap between marker and text */
       }
 
       .notion-list li {
